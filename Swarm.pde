@@ -18,7 +18,7 @@ void draw()
 {
   background(0);
   lights();
-  
+  ambientLight(200,200,200);
   
   map.render();
   player.render();

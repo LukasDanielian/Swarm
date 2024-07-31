@@ -14,16 +14,22 @@ class Player
   void render()
   {
     updateKeys();
-    updateBounds();
+    updateBounds(pos);
     updateCam();
     renderModel();
     renderHUD();
+    
+    if(frameCount % 30 == 0)
+    {
+      Enemy target = getClosestEnemy(pos);
+      map.objects.add(new Projectile(new PVector(pos.x,pos.y,pos.z), target.getPos(), 15, 10, target));
+    }
   }
-  
+
   void updateCam()
   {
     perspective(PI/2.5, float(width)/height, .01, width * 3);
-    camera(pos.x, pos.y - 1500, pos.z + 1300, pos.x,pos.y,pos.z, 0,1,0);
+    camera(pos.x, pos.y - 1500, pos.z + 1000, pos.x,pos.y,pos.z, 0,1,0);
   }
   
   void renderModel()
@@ -61,18 +67,6 @@ class Player
       if(keyDown('D'))
         pos.x += speed;
     }
-  }
-  
-  void updateBounds()
-  {
-    if(pos.x > map.w/2)
-      pos.x = map.w/2;
-    else if(pos.x < -map.w/2)
-      pos.x = -map.w/2;
-    if(pos.z > map.d/2)
-      pos.z = map.d/2;
-    else if(pos.z < -map.d/2)
-      pos.z = -map.d/2;
   }
   
   void renderHUD()

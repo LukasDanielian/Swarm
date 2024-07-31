@@ -2,6 +2,7 @@ class Map
 {
   ArrayList<Object> objects;
   ArrayList<Enemy> enemys;
+  ArrayList<Projectile> projectiles;
   float w,d;
   int maxEnemys,spawnRate;
   
@@ -52,7 +53,7 @@ class Map
     for(int i = 0; i < enemys.size(); i++)
     {
       Enemy enemy = enemys.get(i);
-      enemy.checkCollision();
+      checkCollision(enemy);
       enemy.render();
       
       if(enemy.shouldRemove())
@@ -74,7 +75,7 @@ class Map
       float dist = random(1500,5000);
       PVector pos = new PVector(player.pos.x + cos(theta) * dist,0,player.pos.z + sin(theta) * dist);
       
-      enemys.add(new Bat(pos));
+      enemys.add(new Bat(pos, 3, 150, 15, 10));
     }
   }
 }
