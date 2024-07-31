@@ -53,12 +53,20 @@ void updateBounds(PVector pos)
 
 Enemy getClosestEnemy(PVector pos)
 {
-  //float closest = map.w;
+  float closest = map.w;
+  Enemy toReturn = null;
   
-  //for(int i = 0; )
-  //{
+  for(int i = 0; i < map.enemys.size(); i++)
+  {
+    Enemy enemy = map.enemys.get(i);
+    float dist = dist(pos.x,pos.z,enemy.getPos().x,enemy.getPos().z);
     
-  //}
+    if(dist < closest)
+    {
+      dist = closest;
+      toReturn = enemy;
+    }
+  }
   
-  return null;
+  return toReturn;
 }

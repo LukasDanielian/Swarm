@@ -23,7 +23,7 @@ class Projectile implements Object
     pop();
     
     float angle = atan2(tPos.z - pos.z, tPos.x - pos.x);
-    dir = new PVector(0,-1).rotate(-angle);
+    dir = new PVector(0,1).rotate(-angle);
     pos.x += dir.x * speed;
     pos.z += dir.y * speed;
   }

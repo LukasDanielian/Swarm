@@ -22,7 +22,9 @@ class Player
     if(frameCount % 30 == 0)
     {
       Enemy target = getClosestEnemy(pos);
-      map.objects.add(new Projectile(new PVector(pos.x,pos.y,pos.z), target.getPos(), 15, 10, target));
+      
+      if(target != null)
+        map.objects.add(new Projectile(new PVector(pos.x,pos.y,pos.z), target.getPos(), 15, 10, target));
     }
   }
 
