@@ -2,13 +2,16 @@ class Player
 {
   PVector pos;
   float speed, baseSize;
-  float rot;
+  float rot, damage,weaponRange,fireRate;
   
   Player()
   {
     pos = new PVector(0,0,0);
     baseSize = 300;
     speed = 10;
+    damage = 10;
+    weaponRange = 1000;
+    fireRate = 30;
   }
   
   void render()
@@ -19,12 +22,12 @@ class Player
     renderModel();
     renderHUD();
     
-    if(frameCount % 30 == 0)
+    if(frameCount % fireRate == 0)
     {
-      Enemy target = getClosestEnemy(pos);
+      Enemy target = getClosestEnemy(pos, weaponRange);
       
       if(target != null)
-        map.objects.add(new Projectile(new PVector(pos.x,pos.y,pos.z), target.getPos(), 15, 10, target));
+        map.objects.add(new Projectile(pos.copy(), target.getPos(), 50, 25, 10,target));
     }
   }
 
