@@ -1,8 +1,8 @@
 class Bat extends Enemy
 {
-  Bat(PVector pos, float speed, float baseSize, int health, int XP)
+  Bat(PVector pos, float speed, float baseSize, int health, int damage, float range, int fireRate, int XP)
   {
-    super(pos,speed,baseSize,health,XP);
+    super(pos, speed, baseSize, health, damage, range, fireRate, XP);
   }
 
   void render()
@@ -15,10 +15,5 @@ class Bat extends Enemy
     fill(0);
     box(150, 25, 25);
     pop();
-  }
-  
-  void attack()
-  {
-    
   }
 }

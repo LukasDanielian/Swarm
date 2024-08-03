@@ -23,32 +23,19 @@ void checkCollision(Enemy curr)
     }
   }
 
-  float dist = player.getSize() + curr.getSize();
-
-  if (dist(cPos.x, cPos.z, player.pos.x, player.pos.z) < dist)
+  if (enemyCollision(curr, player))
   {
     float angle = atan2(curr.getPos().z - player.pos.z, curr.getPos().x - player.pos.x);
+    float dist = curr.getSize() + player.getSize();
     curr.updateXZ(player.pos.x + cos(angle) * dist, player.pos.z + sin(angle) * dist);
   }
 }
 
-boolean enemyCollision(Enemy one, Enemy two)
+boolean enemyCollision(Entity one, Entity two)
 {
   PVector posOne = one.getPos();
   PVector posTwo = two.getPos();
   return dist(posOne.x, posOne.z, posTwo.x, posTwo.z) < one.getSize() + two.getSize();
-}
-
-void updateBounds(PVector pos)
-{
-  if (pos.x > map.w/2)
-    pos.x = map.w/2;
-  else if (pos.x < -map.w/2)
-    pos.x = -map.w/2;
-  if (pos.z > map.d/2)
-    pos.z = map.d/2;
-  else if (pos.z < -map.d/2)
-    pos.z = -map.d/2;
 }
 
 Enemy getClosestEnemy(PVector pos, float weaponRange)

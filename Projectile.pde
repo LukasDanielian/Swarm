@@ -1,16 +1,13 @@
 class Projectile implements Object
 {
   PVector pos, tPos, dir;
-  float speed, size;
-  int damage;
-  Enemy target;
+  int  damage;
+  Entity target;
 
-  Projectile(PVector pos, PVector tPos, float speed, float size, int damage, Enemy target)
+  Projectile(PVector pos, PVector tPos, int damage, Entity target)
   {
     this.pos = pos;
     this.tPos = tPos;
-    this.speed = speed;
-    this.size = size;
     this.damage = damage;
     this.target = target;
   }
@@ -20,14 +17,14 @@ class Projectile implements Object
     push();
     translate(pos);
     noStroke();
-    fill(#00FF9F);
-    sphere(size);
+    fill(255,0,0);
+    sphere(25);
     pop();
 
     float rot = -atan2(tPos.z - pos.z, tPos.x - pos.x) + HALF_PI;
     dir = new PVector(0, 1).rotate(-rot);
-    pos.x += dir.x * speed;
-    pos.z += dir.y * speed;
+    pos.x += dir.x * 50;
+    pos.z += dir.y * 50;
   }
 
   boolean shouldRemove()

@@ -15,8 +15,14 @@ class Map
     maxEnemys = 100;
     spawnRate = 120;
     
-    for(int i = 0; i < 2000; i++)
-      objects.add(new Grass(w,d));
+    for(float x = -w/2 - 500; x <= w/2 + 500; x += 1000)
+      objects.add(new House(new PVector(x,0,-d/2),0));
+    
+    for(float z = -d/2 - 1500; z <= d/2 + 1500; z += 1000)
+    {
+      objects.add(new House(new PVector(-w/2,0,z),HALF_PI));
+      objects.add(new House(new PVector(w/2,0,z),-HALF_PI));
+    }
   }
   
   void render()
@@ -26,8 +32,12 @@ class Map
     hint(DISABLE_DEPTH_TEST);
     translate(0,0,0);
     rotateX(-HALF_PI);
-    fill(#086407);
-    rect(0,0,w,d);
+    
+    for(float x = -w/2 + 500; x <= w/2 - 500; x += 1000)
+    {
+      for(float z = -d/2 - 1500; z <= d/2 - 500; z += 1000)
+        image(groundTexture,x,z,1000,1000);
+    }
     
     for(int i = 0; i < enemys.size(); i++)
       enemys.get(i).renderBase();
@@ -75,7 +85,7 @@ class Map
       float dist = random(1500,5000);
       PVector pos = new PVector(player.pos.x + cos(theta) * dist,0,player.pos.z + sin(theta) * dist);
       
-      enemys.add(new Bat(pos, 3, 150, 15, 10));
+      enemys.add(new Bat(pos, 3, 150, 15, 10,500,30,10));
     }
   }
 }

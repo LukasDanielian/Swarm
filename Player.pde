@@ -1,45 +1,31 @@
-class Player
-{
-  PVector pos;
-  float speed, baseSize;
-  float rot, damage,weaponRange,fireRate;
-  
+class Player extends Entity
+{  
   Player()
   {
-    pos = new PVector(0,0,0);
-    baseSize = 300;
-    speed = 10;
-    damage = 10;
-    weaponRange = 1000;
-    fireRate = 30;
+    super(new PVector(0,0,0), 10, 300, 100, 10, 1500, 60, true);
   }
   
   void render()
   {
     updateKeys();
-    updateBounds(pos);
+    updateBounds();
     updateCam();
     renderModel();
     renderHUD();
-    
-    if(frameCount % fireRate == 0)
-    {
-      Enemy target = getClosestEnemy(pos, weaponRange);
-      
-      if(target != null)
-        map.objects.add(new Projectile(pos.copy(), target.getPos(), 50, 25, 10,target));
-    }
+    weapon.attack();
   }
 
   void updateCam()
   {
     perspective(PI/2.5, float(width)/height, .01, width * 3);
-    camera(pos.x, pos.y - 1500, pos.z + 1000, pos.x,pos.y,pos.z, 0,1,0);
+    camera(pos.x, pos.y - 2000, pos.z + 1000, pos.x,pos.y,pos.z, 0,1,0);
   }
   
   void renderModel()
   {
-    rot = -atan2(mouseY - height/2,mouseX - width/2) + HALF_PI;
+    if(weapon.tPos != null)
+      rot = -atan2(weapon.tPos.z - pos.z, weapon.tPos.x - pos.x) + HALF_PI;
+      
     push();
     translate(pos);
     rotateY(rot);
@@ -77,10 +63,5 @@ class Player
   void renderHUD()
   {
     
-  }
-  
-  float getSize()
-  {
-    return baseSize/2;
   }
 }
