@@ -35,8 +35,7 @@ class Projectile implements Object
     {
       if (target != null)
         target.applyDamage(damage);
-      //else
-        //player.applyDamage(damage);
+        
       return true;
     }
 
