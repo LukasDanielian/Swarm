@@ -42,18 +42,18 @@ Enemy getClosestEnemy(PVector pos, float weaponRange)
 {
   float closest = weaponRange;
   Enemy toReturn = null;
-  
-  for(int i = 0; i < map.enemys.size(); i++)
+
+  for (int i = 0; i < map.enemys.size(); i++)
   {
     Enemy enemy = map.enemys.get(i);
-    float dist = dist(pos.x,pos.z,enemy.getPos().x,enemy.getPos().z);
-    
-    if(dist < closest)
+    float dist = dist(pos.x, pos.z, enemy.getPos().x, enemy.getPos().z);
+
+    if (dist < closest)
     {
       closest = dist;
       toReturn = enemy;
     }
   }
-  
+
   return toReturn;
 }

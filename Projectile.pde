@@ -17,7 +17,7 @@ class Projectile implements Object
     push();
     translate(pos);
     noStroke();
-    fill(255,0,0);
+    fill(255, 0, 0);
     sphere(25);
     pop();
 
@@ -35,7 +35,7 @@ class Projectile implements Object
     {
       if (target != null)
         target.applyDamage(damage);
-        
+
       return true;
     }
 

@@ -27,8 +27,8 @@ class Player extends Entity
     renderModel();
     renderHUD();
     attack();
-    
-    if(frameCount % 60 ==0)
+
+    if (frameCount % 60 ==0)
       addHealth(3);
   }
 

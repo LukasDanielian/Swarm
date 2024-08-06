@@ -5,7 +5,7 @@ class Enemy extends Entity
 
   Enemy(PVector pos, float baseSize, int damage, int speed, int health, int fireRate, int XP)
   {
-    super(pos,baseSize);
+    super(pos, baseSize);
     this.damage = damage;
     this.speed = speed;
     this.health = fullHealth = health;
@@ -42,12 +42,12 @@ class Enemy extends Entity
     updateBounds();
     attack();
   }
-  
+
   void attack()
   {
     if (frameCount % fireRate == 0)
     {
-       if(enemyCollision(this, player))
+      if (enemyCollision(this, player))
         player.applyDamage(damage);
     }
   }
@@ -67,12 +67,12 @@ class Enemy extends Entity
 
   boolean shouldRemove()
   {
-    if(health <= 0)
+    if (health <= 0)
     {
       player.addXP(XP);
       return true;
     }
-    
+
     return false;
   }
 }
