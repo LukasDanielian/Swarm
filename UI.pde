@@ -1,4 +1,4 @@
-void renderUpgrades()
+  void renderUpgrades()
 {
   push();
   camera();
