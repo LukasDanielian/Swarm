@@ -87,10 +87,5 @@ class Map
       
       enemys.add(new Bat(pos));
     }
-    
-    if(frameCount % 60 == 0 && spawnRate > 5)
-    {
-      spawnRate -= 5;
-    }
   }
 }
