@@ -3,9 +3,13 @@ class Enemy extends Entity
   PVector dir;
   int XP;
 
-  Enemy(PVector pos, float speed, float baseSize, int health, int damage, float range, float fireRate, int XP)
+  Enemy(PVector pos, float baseSize, int damage, int speed, int health, int fireRate, int XP)
   {
-    super(pos, speed, baseSize, health, damage, range, fireRate, false);
+    super(pos,baseSize);
+    this.damage = damage;
+    this.speed = speed;
+    this.health = fullHealth = health;
+    this.fireRate = fireRate;
     this.XP = XP;
   }
 
@@ -29,14 +33,23 @@ class Enemy extends Entity
     rot = -atan2(player.pos.z - pos.z, player.pos.x - pos.x) + HALF_PI;
     dir = new PVector(0, 1).rotate(-rot);
 
-    if (dist(pos.x, pos.z, player.pos.x, player.pos.z) > weapon.range)
+    if (dist(pos.x, pos.z, player.pos.x, player.pos.z) > player.getSize())
     {
       pos.x += dir.x * speed;
       pos.z += dir.y * speed;
     }
 
     updateBounds();
-    weapon.attack();
+    attack();
+  }
+  
+  void attack()
+  {
+    if (frameCount % fireRate == 0)
+    {
+       if(enemyCollision(this, player))
+        player.applyDamage(damage);
+    }
   }
 
   void renderBase()
@@ -54,6 +67,12 @@ class Enemy extends Entity
 
   boolean shouldRemove()
   {
-    return health <= 0;
+    if(health <= 0)
+    {
+      player.addXP(XP);
+      return true;
+    }
+    
+    return false;
   }
 }

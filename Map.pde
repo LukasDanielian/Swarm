@@ -12,7 +12,7 @@ class Map
     enemys = new ArrayList<Enemy>();
     w = 20000;
     d = 12000;
-    maxEnemys = 100;
+    maxEnemys = 1000;
     spawnRate = 120;
     
     for(float x = -w/2 - 500; x <= w/2 + 500; x += 1000)
@@ -85,7 +85,12 @@ class Map
       float dist = random(1500,5000);
       PVector pos = new PVector(player.pos.x + cos(theta) * dist,0,player.pos.z + sin(theta) * dist);
       
-      enemys.add(new Bat(pos, 3, 150, 15, 10,500,30,10));
+      enemys.add(new Bat(pos));
+    }
+    
+    if(frameCount % 60 == 0 && spawnRate > 5)
+    {
+      spawnRate -= 5;
     }
   }
 }

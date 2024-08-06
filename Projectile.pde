@@ -2,9 +2,9 @@ class Projectile implements Object
 {
   PVector pos, tPos, dir;
   int  damage;
-  Entity target;
+  Enemy target;
 
-  Projectile(PVector pos, PVector tPos, int damage, Entity target)
+  Projectile(PVector pos, PVector tPos, int damage, Enemy target)
   {
     this.pos = pos;
     this.tPos = tPos;
@@ -31,7 +31,7 @@ class Projectile implements Object
   {
     float dist = dist(pos.x, pos.y, pos.z, tPos.x, tPos.y, tPos.z);
 
-    if (dist < ((target != null) ? target.getSize() : player.getSize()))
+    if (dist < target.getSize())
     {
       if (target != null)
         target.applyDamage(damage);
