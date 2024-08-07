@@ -136,7 +136,7 @@ class Player extends Entity
       Enemy target = getClosestEnemy(pos, 1700);
 
       if (target != null)
-        map.objects.add(new Projectile(pos.copy(), target.getPos(), damage, target));
+        map.objects.add(new Projectile(pos.copy(), target.getPos(), damage));
     }
   }
 

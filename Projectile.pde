@@ -1,15 +1,18 @@
 class Projectile implements Object
 {
-  PVector pos, tPos, dir;
-  int  damage;
-  Enemy target;
+  PVector startPos, pos, dir;
+  int damage;
+  ArrayList<Enemy> alreadyHit;
 
-  Projectile(PVector pos, PVector tPos, int damage, Enemy target)
+  Projectile(PVector pos, PVector tPos, int damage)
   {
+    startPos = pos.copy();
     this.pos = pos;
-    this.tPos = tPos;
     this.damage = damage;
-    this.target = target;
+    alreadyHit = new ArrayList<Enemy>();
+
+    float rot = -atan2(tPos.z - pos.z, tPos.x - pos.x) + HALF_PI;
+    dir = new PVector(0, 1).rotate(-rot);
   }
 
   void render()
@@ -21,24 +24,32 @@ class Projectile implements Object
     sphere(25);
     pop();
 
-    float rot = -atan2(tPos.z - pos.z, tPos.x - pos.x) + HALF_PI;
-    dir = new PVector(0, 1).rotate(-rot);
     pos.x += dir.x * 50;
     pos.z += dir.y * 50;
+    checkDamage();
+  }
+
+  void checkDamage()
+  {
+    for (int i = 0; i < map.enemys.size(); i++)
+    {
+      Enemy enemy = map.enemys.get(i);
+
+      if (!alreadyHit.contains(enemy))
+      {
+        PVector ePos = enemy.getPos();
+
+        if (dist(pos.x, pos.z, ePos.x, ePos.z) < enemy.getSize())
+        {
+          enemy.applyDamage(damage);
+          alreadyHit.add(enemy);
+        }
+      }
+    }
   }
 
   boolean shouldRemove()
   {
-    float dist = dist(pos.x, pos.y, pos.z, tPos.x, tPos.y, tPos.z);
-
-    if (dist < target.getSize())
-    {
-      if (target != null)
-        target.applyDamage(damage);
-
-      return true;
-    }
-
-    return false;
+    return dist(startPos.x, startPos.z, pos.x, pos.z) >= 1700;
   }
 }

@@ -13,7 +13,7 @@ class Map
     w = 20000;
     d = 12000;
     maxEnemys = 1000;
-    spawnRate = 120;
+    spawnRate = 20;
 
     for (float x = -w/2 - 500; x <= w/2 + 500; x += 1000)
       objects.add(new House(new PVector(x, 0, -d/2), 0));

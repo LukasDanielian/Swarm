@@ -8,7 +8,7 @@ class Text implements Object
   {
     this.pos = pos;
     this.text = text + "";
-    size = map(int(text), 10, 1000, 50, 200);
+    size = map(int(text), 10, 1000, 100, 200);
     dir = (random(0, 1) > .5) ? -1 : 1;
   }
 
